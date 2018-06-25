@@ -13,7 +13,9 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ContactService {
-  private allcontactsUrl = 'api/allcontacts';  // URL to web api
+   private allcontactsUrl = 'api/allcontacts';  // URL to web api
+   // private allcontactsUrl ='http://localhost:3000/api/people';
+
   constructor( private http: HttpClient,private messageService: MessageService) { }
 
   //getContacts(): Observable<Contact[]> {
@@ -32,11 +34,12 @@ export class ContactService {
   getContactNo404<Data>(id: number): Observable<Contact> {
     const url = `${this.allcontactsUrl}/?id=${id}`;
     return this.http.get<Contact[]>(url)
+
       .pipe(
         map(allcontacts => allcontacts[0]), // returns a {0|1} element array
         tap(h => {
           const outcome = h ? `fetched` : `did not find`;
-          this.log(`${outcome} hero id=${id}`);
+          this.log(`${outcome} contact id=${id}`);
         }),
         catchError(this.handleError<Contact>(`getContact id=${id}`))
       );
@@ -58,7 +61,7 @@ export class ContactService {
     /** PUT: update the hero on the server */
 updateContact (contact: Contact): Observable<any> {
   return this.http.put(this.allcontactsUrl, contact, httpOptions).pipe(
-    tap(_ => this.log(`updated hero id=${contact.id}`)),
+    tap(_ => this.log(`updated contact id=${contact.id}`)),
     catchError(this.handleError<any>('updateContact'))
   );
 }
@@ -75,7 +78,7 @@ deleteContact (contact: Contact | number): Observable<Contact> {
   const url = `${this.allcontactsUrl}/${id}`;
 
   return this.http.delete<Contact>(url, httpOptions).pipe(
-    tap(_ => this.log(`deleted hero id=${id}`)),
+    tap(_ => this.log(`deleted contact id=${id}`)),
     catchError(this.handleError<Contact>('deleteContact'))
   );
 }

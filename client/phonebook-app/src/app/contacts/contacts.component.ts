@@ -40,13 +40,13 @@ export class ContactsComponent implements OnInit {
       });
   }
   */
- add(contactfirstname: string,contactsecondname:string,contactphonenumber:string,id:number): void {
+ add(contactfirstname: string,id:number): void {
   contactfirstname = contactfirstname.trim();
-  contactsecondname = contactsecondname.trim();
-  contactphonenumber = contactphonenumber.trim();
+  //contactsecondname = contactsecondname.trim();
+  //contactphonenumber = contactphonenumber.trim();
 
 
-  if (!contactfirstname&&!contactsecondname&&!contactphonenumber) { return; }
+  if (!contactfirstname) { return; }
  this.contactService.addContact({id}  as Contact)
     .subscribe(contact => {
       this.allcontacts.push(contact);
