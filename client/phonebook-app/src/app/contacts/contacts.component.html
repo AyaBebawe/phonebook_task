@@ -1,0 +1,43 @@
+
+    <h2>My contacts</h2>
+    <div>
+        <label>Contactfirstname:
+          <input #contactfirstname />
+        </label>
+        <label>Contactsecondname:
+            <input #contactsecondname />
+          </label>
+          <label>phonenumber:
+              <input #contactphonenumber />
+            </label>
+              
+
+        <!-- (click) passes input value to add() and then clears the input -->
+        <button (click)="add(contactfirstname.value,contactsecondname.value,contactphonenumber.value);  contactfirstname.value='';contactsecondname.value=''; contactphonenumber.value=''">
+          add
+        </button>
+      
+      <!--<button (click)="add(contactfirstname.value);  contactfirstname.value=''">
+          add
+        </button>-->
+      
+
+      </div>
+    <ul class="allcontacts">
+        <li *ngFor="let contact of allcontacts">
+
+        <a routerLink="/detail/{{contact.id}}">
+          <span class="badge">{{contact.id}}</span> {{contact.firstname}} {{contact.secondname}}
+        </a>
+        <button class="delete" title="delete contact"
+         (click)="delete(contact)">x</button>
+        </li>
+    </ul>
+    <app-contact-detail [contact]="selectedContact"></app-contact-detail>
+
+
+    
+
+
+
+
